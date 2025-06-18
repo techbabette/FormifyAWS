@@ -13,7 +13,14 @@ variable "subnet_public_cidr" {
   description = "CIDR used for the subnet with the NAT gateway and ALB, internet facing"
 }
 
-variable "subnet_private_cidr" {
+variable "subnet_private_a_cidr" {
   type = string
   description = "CIDR used for the subnet with the compute units and AmazonMQ"
+  default = "10.0.2.0/24"
+}
+
+variable "subnet_private_b_cidr" {
+  type = string
+  description = "CIDR used for the subnet with the compute units and AmazonMQ"
+  default = "10.0.3.0/24"
 }

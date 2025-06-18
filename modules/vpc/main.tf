@@ -13,10 +13,16 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch= true
 }
 
-resource "aws_subnet" "private" {
+resource "aws_subnet" "private_a" {
   vpc_id                 = aws_vpc.main.id
-  cidr_block             = var.subnet_private_cidr
+  cidr_block             = var.subnet_private_a_cidr
   availability_zone      = "${var.vpc_region}a"
+}
+
+resource "aws_subnet" "private_b" {
+  vpc_id                 = aws_vpc.main.id
+  cidr_block             = var.subnet_private_b_cidr
+  availability_zone      = "${var.vpc_region}b"
 }
 
 # Gateways
@@ -65,7 +71,12 @@ resource "aws_route_table_association" "public" {
   route_table_id       = aws_route_table.public.id
 }
 
-resource "aws_route_table_association" "private" {
-  subnet_id            = aws_subnet.private.id
+resource "aws_route_table_association" "private_a" {
+  subnet_id            = aws_subnet.private_a.id
+  route_table_id       = aws_route_table.private.id
+}
+
+resource "aws_route_table_association" "private_b" {
+  subnet_id            = aws_subnet.private_b.id
   route_table_id       = aws_route_table.private.id
 }

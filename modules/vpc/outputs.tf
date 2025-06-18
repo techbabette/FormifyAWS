@@ -3,7 +3,12 @@ output "subnet_public" {
   description = "Public subnet object"
 }
 
-output "subnet_private" {
-  value = aws_subnet.private
-  description = "Private subnet object"
+output "subnet_private_a" {
+  value = aws_subnet.private_a
+  description = "Private subnet A object"
+}
+
+output "subnet_private_b" {
+  value = aws_subnet.private_b
+  description = "Private subnet B object"
 }
