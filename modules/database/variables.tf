@@ -4,12 +4,12 @@ variable "aws_region" {
 }
 
 variable "private_subnet_ids" {
-  type              = list(number)
+  type              = list(string)
   description       = "Subnets with which to create a database subnet group"
 }
 
 variable "security_group_ids" {
-    type            = list(number)
+    type            = list(string)
     description     = "Security group ID to associate with the database"
 }
 
