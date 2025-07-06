@@ -7,7 +7,7 @@ resource "aws_db_subnet_group" "persistence_group" {
   }
 }
 
-resource "aws_db_instance" "librarydb" {
+resource "aws_db_instance" "formify" {
   allocated_storage        = 10
   db_name                  = "formify"
   engine                   = var.db_engine
@@ -21,4 +21,8 @@ resource "aws_db_instance" "librarydb" {
   availability_zone        = "${var.aws_region}a"
   port                     = var.db_port 
   depends_on               = [ aws_db_subnet_group.persistence_group ]
+
+  tags                     = {
+    Name                   = "Formify"
+  }
 }
