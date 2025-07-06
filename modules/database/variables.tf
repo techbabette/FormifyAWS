@@ -34,12 +34,14 @@ variable "db_engine_version" {
 variable "db_password" {
     type            = string
     description     = "Database password" 
+    sensitive       = true
 }
 
 variable "db_username" {
     type            = string
     description     = "Database username" 
     default         = "root"
+    sensitive       = true
 }
 
 variable "db_port" {
