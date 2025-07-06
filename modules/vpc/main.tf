@@ -80,3 +80,39 @@ resource "aws_route_table_association" "private_b" {
   subnet_id            = aws_subnet.private_b.id
   route_table_id       = aws_route_table.private.id
 }
+
+# Security groups
+
+resource "aws_security_group" "private_database" {
+  name                = "formify_database"
+  description         = "Allow inbound traffic to database port"
+  vpc_id              = aws_vpc.main.id
+
+  tags = {
+    Name              = "formify_database"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_private_database" {
+  security_group_id = aws_security_group.private_database.id
+  cidr_ipv4         = aws_vpc.main.cidr_block
+  from_port         = var.db_port
+  ip_protocol       = "tcp"
+  to_port           = var.db_port 
+}
+
+resource "aws_security_group" "egress_all" {
+  name                = "formify_egress"
+  description         = "Allow all outbound traffic"
+  vpc_id              = aws_vpc.main.id
+
+  tags = {
+    Name              = "formify_egress"
+  }
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4_database" {
+  security_group_id = aws_security_group.egress_all.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+}

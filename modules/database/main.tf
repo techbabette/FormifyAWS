@@ -16,9 +16,9 @@ resource "aws_db_instance" "librarydb" {
   username                 = var.db_username
   password                 = var.db_password
   skip_final_snapshot      = true
-  vpc_security_group_ids   = [ aws_security_group.private_database.id ]
-  db_subnet_group_name     = aws_db_subnet_group.persistence_group
+  vpc_security_group_ids   = var.security_group_ids
+  db_subnet_group_name     = aws_db_subnet_group.persistence_group.name
   availability_zone        = "${var.aws_region}a"
-
+  port                     = var.db_port 
   depends_on               = [ aws_db_subnet_group.persistence_group ]
 }

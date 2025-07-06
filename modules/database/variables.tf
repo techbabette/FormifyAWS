@@ -4,8 +4,13 @@ variable "aws_region" {
 }
 
 variable "private_subnet_ids" {
-  type = list(number)
-  description = "Subnets with which to create a database subnet group"
+  type              = list(number)
+  description       = "Subnets with which to create a database subnet group"
+}
+
+variable "security_group_ids" {
+    type            = list(number)
+    description     = "Security group ID to associate with the database"
 }
 
 variable "db_instance_class" {
@@ -35,4 +40,10 @@ variable "db_username" {
     type            = string
     description     = "Database username" 
     default         = "root"
+}
+
+variable "db_port" {
+  type              = number
+  description       = "Port that will be accessible on the database security group"
+  default           = "3306"
 }
